@@ -1,2 +1,2 @@
 # DSA
-some code reltaed to DSA and Algo
+some code related to DSA and Algo
