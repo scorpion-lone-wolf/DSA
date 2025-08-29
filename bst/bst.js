@@ -5,7 +5,7 @@ class BSTNode {
     this.right = null;
   }
 }
-class BinarySearchTree {
+export class BinarySearchTree {
   constructor() {
     this.head = null;
   }
@@ -83,8 +83,9 @@ class BinarySearchTree {
   }
 
   // ================================
-  // inorder traversal
+  // (DFS -> Traversal varient)
   // ================================
+  //  1. inorder traversal
   inorderTraversal() {
     let tempHead = this.head;
     return this.#inorderTraversal(tempHead);
@@ -95,6 +96,55 @@ class BinarySearchTree {
     this.#inorderTraversal(tempHead.left);
     console.log(tempHead.val);
     this.#inorderTraversal(tempHead.right);
+  }
+  // 2. preorder traversal
+  preorderTraversal() {
+    let tempHead = this.head;
+    return this.#preorderTraversal(tempHead);
+  }
+
+  #preorderTraversal(tempHead) {
+    if (tempHead == null) return;
+    console.log(tempHead.val);
+    this.#preorderTraversal(tempHead.left);
+    this.#preorderTraversal(tempHead.right);
+  }
+  // 3. postorder traversal
+  postorderTraversal() {
+    let tempHead = this.head;
+    return this.#postorderTraversal(tempHead);
+  }
+
+  #postorderTraversal(tempHead) {
+    if (tempHead == null) return;
+    this.#postorderTraversal(tempHead.left);
+    this.#postorderTraversal(tempHead.right);
+    console.log(tempHead.val);
+  }
+  // ================================
+  // (BFS -> Traversal varient)
+  // ================================
+  // Level Order Traversal
+
+  levelorderTraversal() {
+    let tempHead = this.head;
+    if (tempHead == null) return;
+    return this.#levelorderTraversal(tempHead);
+  }
+
+  #levelorderTraversal(tempHead) {
+    const queue = [];
+    queue.push(tempHead);
+    while (queue.length) {
+      const node = queue.shift(); // take element from front
+      console.log(node.val);
+      if (node.left) {
+        queue.push(node.left); // push element from rare
+      }
+      if (node.right) {
+        queue.push(node.right); // push element from rare
+      }
+    }
   }
 
   // ================================
@@ -123,10 +173,17 @@ for (let i = 0; i < arrEle.length; i++) {
 }
 // traversal
 bst.inorderTraversal();
+
+// searching
 console.log(bst.search(8));
 console.log(bst.search(9));
 console.log(bst.search(7));
 
 // removal of an value
 bst.remove(11);
+
+// traversals
+console.log("In Order traversal");
 bst.inorderTraversal();
+console.log("Level Order traversal");
+bst.levelorderTraversal();
