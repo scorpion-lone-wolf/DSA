@@ -3,12 +3,17 @@ class MinHeap {
     this.heap = [];
   }
 
+  // ==================
+  // Inserting a value into a heap. Time =  n * log(n)
+  // ==================
+
   insertIntoHeap(val) {
     this.heap.push(val);
     this.#maintainHeapPropertyAfterInsertion(this.heap.length - 1);
     return val;
   }
   #maintainHeapPropertyAfterInsertion(indx) {
+    // percolate up
     const parentIndx = Math.floor((indx - 1) / 2);
 
     if (parentIndx >= 0 && this.heap[indx] < this.heap[parentIndx]) {
@@ -18,6 +23,9 @@ class MinHeap {
     return true;
   }
 
+  // ==================
+  // Deleting a root value from a heap . Time =  n * log(n)
+  // ==================
   deletion() {
     const len = this.heap.length;
     if (len === 0) return null;
@@ -34,8 +42,8 @@ class MinHeap {
     return popValue;
   }
   #maintainHeapPropertyAfterDeletion(indx) {
+    // percolate down
     const len = this.heap.length;
-
     const leftChild = indx * 2 + 1;
     const rightChild = leftChild + 1;
     let swappedIndex = indx;
@@ -48,6 +56,21 @@ class MinHeap {
     if (swappedIndex == indx) return;
     [this.heap[swappedIndex], this.heap[indx]] = [this.heap[indx], this.heap[swappedIndex]];
     return this.#maintainHeapPropertyAfterDeletion(swappedIndex);
+  }
+
+  // ==================
+  // Build heap or Heapify. Time = O(n)
+  // ==================
+
+  heapify(arr) {
+    const len = arr.length;
+    this.heap = arr.slice();
+    const midIndex = Math.floor(len / 2);
+
+    for (let i = midIndex; i >= 0; i--) {
+      this.#maintainHeapPropertyAfterDeletion(i);
+    }
+    return this.heap;
   }
 }
 
