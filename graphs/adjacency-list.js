@@ -32,7 +32,6 @@ for (let [src, des] of edges) {
 console.log(adjList); //{ A: [ 'B' ], B: [ 'C', 'E' ], C: [ 'E' ], E: [ 'D' ], D: [] }
 
 // dfs on adjacency list
-
 function dfs(adjList, start, end, visited) {
   if (visited.has(start)) return 0;
   if (start === end) return 1;
